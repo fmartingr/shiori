@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
 	fp "path/filepath"
 
@@ -53,6 +54,8 @@ func preRunRootHandler(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
+	log.Println(dataDir)
+
 	err = os.MkdirAll(dataDir, os.ModePerm)
 	if err != nil {
 		cError.Printf("Failed to create data dir: %v\n", err)
@@ -90,12 +93,13 @@ func getDataDir(portableMode bool) (string, error) {
 	}
 
 	// Try to use platform specific app path
-	userScope := apppaths.NewScope(apppaths.User, "shiori", "shiori")
-	dataDir, err := userScope.DataDir()
+	userScope := apppaths.NewScope(apppaths.User, "shiori")
+	dataDir, err := userScope.DataPath("shiori")
 	if err == nil {
 		return dataDir, nil
 	}
 
+	// TODO: Log warn
 	// When all fail, use current working directory
 	return ".", nil
 }
