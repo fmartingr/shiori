@@ -1,3 +1,4 @@
+//go:build ignore
 // +build ignore
 
 package main
@@ -10,8 +11,8 @@ import (
 )
 
 func main() {
-	err := vfsgen.Generate(http.Dir("internal/view"), vfsgen.Options{
-		Filename:     "internal/webserver/assets-prod.go",
+	err := vfsgen.Generate(http.Dir("../../internal/view"), vfsgen.Options{
+		Filename:     "../../internal/webserver/assets-prod.go",
 		PackageName:  "webserver",
 		BuildTags:    "!dev",
 		VariableName: "assets",
