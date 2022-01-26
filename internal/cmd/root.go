@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"os"
 	fp "path/filepath"
 
@@ -53,8 +52,6 @@ func preRunRootHandler(cmd *cobra.Command, args []string) {
 		cError.Printf("Failed to get data dir: %v\n", err)
 		os.Exit(1)
 	}
-
-	log.Println(dataDir)
 
 	err = os.MkdirAll(dataDir, os.ModePerm)
 	if err != nil {
